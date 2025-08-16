@@ -19,7 +19,19 @@ export const getAppStateFromSupabase = async (): Promise<AppState> => {
       return getDefaultAppState();
     }
 
-    return data || getDefaultAppState();
+    // Supabaseから取得したデータを正しい形式に変換
+    if (data) {
+      return {
+        groups: data.groups || [],
+        playerScores: data.player_scores || [],
+        scoreRecords: data.score_records || [],
+        currentHole: data.current_hole || 1,
+        count: data.count || 0,
+        name: data.name || '',
+        displayName: data.display_name || '',
+      };
+    }
+    return getDefaultAppState();
   } catch (error) {
     console.error('Supabase接続エラー:', error);
     return getDefaultAppState();
