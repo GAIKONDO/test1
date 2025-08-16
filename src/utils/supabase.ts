@@ -43,6 +43,8 @@ export const saveAppStateToSupabase = async (appState: AppState): Promise<void> 
         display_name: appState.displayName,
         player_scores: appState.playerScores,
         score_records: appState.scoreRecords,
+        groups: appState.groups,
+        current_hole: appState.currentHole,
         updated_at: new Date().toISOString()
       });
 
