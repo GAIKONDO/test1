@@ -210,24 +210,24 @@ export default function Home() {
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
               <div className="text-center">
-                <div className="text-2xl font-bold text-blue-600">{appState.groups.length}</div>
+                <div className="text-2xl font-bold text-blue-600">{appState.groups?.length || 0}</div>
                 <div className="text-gray-600">組数</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-green-600">
-                  {appState.groups.reduce((total, group) => total + group.players.length, 0)}
+                  {appState.groups?.reduce((total, group) => total + (group.players?.length || 0), 0) || 0}
                 </div>
                 <div className="text-gray-600">プレイヤー数</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-purple-600">
-                  {appState.playerScores.filter(score => score.scores.length === 18).length}
+                  {appState.playerScores?.filter(score => score.scores?.length === 18)?.length || 0}
                 </div>
                 <div className="text-gray-600">完了者</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-yellow-600">
-                  {appState.currentHole}
+                  {appState.currentHole || 1}
                 </div>
                 <div className="text-gray-600">現在のホール</div>
               </div>
