@@ -51,7 +51,7 @@ export default function PlayerManager({ groups, onGroupsChange }: PlayerManagerP
       if (group.id === groupId) {
         return {
           ...group,
-          players: group.players.filter(player => player.id !== playerId)
+          players: group.players?.filter(player => player.id !== playerId) || []
         };
       }
       return group;
@@ -61,7 +61,7 @@ export default function PlayerManager({ groups, onGroupsChange }: PlayerManagerP
 
   // 組を削除
   const removeGroup = (groupId: string) => {
-    onGroupsChange(groups.filter(group => group.id !== groupId));
+    onGroupsChange(groups?.filter(group => group.id !== groupId) || []);
   };
 
   return (
@@ -105,9 +105,9 @@ export default function PlayerManager({ groups, onGroupsChange }: PlayerManagerP
             className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-geocentric-blue focus:border-transparent"
           >
             <option value="">組を選択</option>
-            {groups.map(group => (
+            {groups?.map(group => (
               <option key={group.id} value={group.id}>
-                {group.name} ({group.players.length}/4)
+                {group.name} ({group.players?.length || 0}/4)
               </option>
             ))}
           </select>
@@ -129,17 +129,17 @@ export default function PlayerManager({ groups, onGroupsChange }: PlayerManagerP
         <h3 className="text-lg font-medium text-purple-800 mb-3">
           📋 組とプレイヤー一覧
         </h3>
-        {groups.length === 0 ? (
+        {groups?.length === 0 ? (
           <p className="text-gray-500 text-center py-4">
             まだ組が作成されていません
           </p>
         ) : (
           <div className="space-y-4">
-            {groups.map(group => (
+            {groups?.map(group => (
               <div key={group.id} className="border border-gray-200 rounded-lg p-4">
                 <div className="flex justify-between items-center mb-3">
                   <h4 className="text-lg font-medium text-gray-800">
-                    {group.name} ({group.players.length}/4)
+                    {group.name} ({group.players?.length || 0}/4)
                   </h4>
                   <button
                     onClick={() => removeGroup(group.id)}
@@ -149,11 +149,11 @@ export default function PlayerManager({ groups, onGroupsChange }: PlayerManagerP
                   </button>
                 </div>
                 
-                {group.players.length === 0 ? (
+                {group.players?.length === 0 ? (
                   <p className="text-gray-500 text-sm">プレイヤーがまだいません</p>
                 ) : (
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {group.players.map(player => (
+                    {group.players?.map(player => (
                       <div key={player.id} className="flex justify-between items-center bg-gray-50 px-3 py-2 rounded">
                         <span className="text-gray-800">{player.name}</span>
                         <button
@@ -167,7 +167,7 @@ export default function PlayerManager({ groups, onGroupsChange }: PlayerManagerP
                   </div>
                 )}
                 
-                {group.players.length >= 4 && (
+                {group.players?.length >= 4 && (
                   <p className="text-green-600 text-sm mt-2">
                     ✅ この組は満員です
                   </p>
@@ -186,24 +186,24 @@ export default function PlayerManager({ groups, onGroupsChange }: PlayerManagerP
         <div className="grid grid-cols-2 gap-4 text-sm">
           <div>
             <span className="text-gray-600">総組数:</span>
-            <span className="font-medium ml-2">{groups.length}</span>
+            <span className="font-medium ml-2">{groups?.length || 0}</span>
           </div>
           <div>
             <span className="text-gray-600">総プレイヤー数:</span>
             <span className="font-medium ml-2">
-              {groups.reduce((total, group) => total + group.players.length, 0)}
+              {groups?.reduce((total, group) => total + (group.players?.length || 0), 0) || 0}
             </span>
           </div>
           <div>
             <span className="text-gray-600">満員の組:</span>
             <span className="font-medium ml-2">
-              {groups.filter(group => group.players.length >= 4).length}
+              {groups?.filter(group => group.players?.length >= 4)?.length || 0}
             </span>
           </div>
           <div>
             <span className="text-gray-600">空き枠:</span>
             <span className="font-medium ml-2">
-              {groups.reduce((total, group) => total + Math.max(0, 4 - group.players.length), 0)}
+              {groups?.reduce((total, group) => total + Math.max(0, 4 - (group.players?.length || 0)), 0) || 0}
             </span>
           </div>
         </div>
