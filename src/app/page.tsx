@@ -159,9 +159,9 @@ export default function Home() {
       <div className="container mx-auto px-4 py-8">
         {/* ヘッダー */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">
-            🏌️ ゴルフコンペアプリ
-          </h1>
+                           <h1 className="text-4xl font-bold text-gray-800 mb-2">
+                   🏌️ ゴルフコンペアプリ v2.0.0
+                 </h1>
           <p className="text-gray-600 mb-4">
             リアルタイムでスコアを共有・管理するゴルフコンペ専用アプリケーション
           </p>
